@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include<string.h>
+#include <ctype.h>
 
+// function for getting file's content
 char *readfile(const char *filename){
      FILE *file = fopen(filename, "r");
      if (file == NULL) {   return "file cannot be opened";  }
@@ -32,6 +34,7 @@ char *readfile(const char *filename){
     }
 
 
+// function to compress the file 's content
 char* compress(char* chars) {
     int charsSize = strlen(chars);  
     char* result = malloc((charsSize * 2 + 1) * sizeof(char));  
@@ -58,14 +61,130 @@ char* compress(char* chars) {
     return result;
 }
 
+// function to write result in the file
+void write_file(const char *input_string, const char *filename) {
+    FILE *file = fopen(filename, "w");
+    if (file == NULL) {
+        perror("Error opening file for writing");
+        return;
+    }
+    fputs(input_string, file);
+    fclose(file);}
+
+
+
+
+
+// function to decompress file's content
+void decompress(char* chars, char* result) {
+    char *newstring = result;
+    const char *ptr = chars;
+
+    while (*ptr != '\0') {
+        char current_char = *ptr;
+        ptr++;
+        int num = 1;
+        if (isdigit(*ptr)) {
+            num = 0;  
+            while (isdigit(*ptr)) {
+                num = num * 10 + (*ptr - '0');  
+                ptr++; 
+            }
+        }
+        for (int i = 0; i < num; i++) {
+            *newstring = current_char;
+            newstring++;
+        }
+    }
+
+    *newstring = '\0';  
+}
+
+
+
+int length(char* chars) {
+    int len = 0;
+    const char* ptr = chars;
+
+    while (*ptr != '\0') {
+        int num = 1;  
+        if (isdigit(*(ptr + 1))) {
+            num = 0;
+            while (isdigit(*(ptr + 1))) {
+                num = num * 10 + (*(ptr + 1) - '0');
+                ptr++;
+            }
+        }
+        len += num;  
+        ptr++; 
+    }
+
+    return len;
+}
+
 
 
 int main() {
-    const char* filename = "majdi.txt"; 
-    char*m = readfile(filename); 
-    char* compressed = compress(m); 
-    printf("Original content: %s\n", m);
-    printf("Compressed string: %s", compressed); 
-    return 0;
-}
+    int choice;
+     printf("Choose mode:\n");
+    printf("1. Compression\n");
+    printf("2. Decompression\n");
+    printf("Enter your choice: ");
+    scanf("%d", &choice);
 
+
+    char filename[256];
+    if(choice==1){
+    printf("Enter your filename: ");
+    if (scanf("%255s", filename) != 1) {
+        fprintf(stderr, "Error reading filename.\n");
+        return 1;
+    }
+    char* fileContent = readfile(filename);
+    if (fileContent == NULL) {
+        fprintf(stderr, "Failed to read file.\n");
+        return 1;
+    }
+
+    char* compressed = compress(fileContent);
+    free(fileContent); 
+
+    if (compressed == NULL) {
+        fprintf(stderr, "Compression failed.\n");
+        return 1;
+    }
+    char outputFilename[512]; 
+    snprintf(outputFilename, sizeof(outputFilename), "%s_compressed", filename);
+    write_file(compressed,outputFilename);
+    printf("Compressed content written to %s\n",outputFilename);
+
+    free(compressed); 
+    return 0;}
+    else if(choice==2){printf("Enter your filename: ");
+    if (scanf("%255s", filename) != 1) {
+        fprintf(stderr, "Error reading filename.\n");
+        return 1;
+    }
+    char* fileContent = readfile(filename);
+    if (fileContent == NULL) {
+        fprintf(stderr, "Failed to read file.\n");
+        return 1;
+         }
+    int c = length(fileContent);  
+    char result[c + 1]; 
+    decompress(fileContent, result);
+    if (result == NULL) {
+        fprintf(stderr, "Compression failed.\n");
+        return 1;
+    }
+    char outputFilename[512]; 
+    snprintf(outputFilename, sizeof(outputFilename), "%s_decompressed", filename);
+    write_file(result,outputFilename);
+    printf("Compressed content written to %s\n",outputFilename);
+
+
+
+    }
+    else{ fprintf(stderr, "Invalid choice.\n");
+        return 1;}
+}
