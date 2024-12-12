@@ -4,8 +4,13 @@ This project provides a tool to compress and decompress text files using a custo
 
 **Solution Explanation**
 
+
+*readfile function*
+The readfile function reads the entire content of a file specified by its name and returns it as a dynamically allocated null-terminated string. It opens the file in read mode, reads it character by character using fgtec, dynamically resizes the memory with realloc to store the content, and ensures proper error handling for file access or memory allocation failures. Finally, it appends a null character ('\0') to mark the end of the string and closes the file.
+
 *Compression*
-The compression function replaces sequences of repeated characters with the character followed by its count. For example, "aaabb" becomes "a3b2".
+The compression function replaces sequences of repeated characters with the character followed by its count. For example, "aaabb" becomes "a3b2".In fact , It iterates through the input string, counts consecutive occurrences of each character, and appends the character and its count to a dynamically allocated result string. If a character appears only once, it is added without a count. The result is null-terminated ('\0') and returned.
+
 
 - Time Complexity: O(n), where "n" is the size of the input string. Each character is processed once.
 - Space Complexity: O(n), as we allocate memory proportional to the input size for the output string.
@@ -20,8 +25,5 @@ The decompression function reconstructs the original text by expanding encoded s
 This solution is optimal for repetitive text as it achieves significant space savings without sacrificing processing speed.
 
 
-1)explanation of readfile function: 
-The readfile function reads the entire content of a file specified by its name and returns it as a dynamically allocated null-terminated string. It opens the file in read mode, reads it character by character using fgtec, dynamically resizes the memory with realloc to store the content, and ensures proper error handling for   file access or memory allocation failures. Finally, it appends a null character ('\0') to mark the end of the string and closes the file.
 
-2)Expalantion of Compress function:
 
