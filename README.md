@@ -18,3 +18,10 @@ The decompression function reconstructs the original text by expanding encoded s
 
 *Optimality*
 This solution is optimal for repetitive text as it achieves significant space savings without sacrificing processing speed.
+
+
+1)explanation of readfile function: 
+The readfile function reads the entire content of a file specified by its name and returns it as a dynamically allocated null-terminated string. It opens the file in read mode, reads it character by character using fgtec, dynamically resizes the memory with realloc to store the content, and ensures proper error handling for   file access or memory allocation failures. Finally, it appends a null character ('\0') to mark the end of the string and closes the file.
+
+2)Expalantion of Compress function:
+
