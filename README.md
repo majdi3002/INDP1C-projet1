@@ -5,15 +5,15 @@ This project provides a tool to compress and decompress text files using a custo
 **Solution Explanation**
 
 *Compression*
-The compression function replaces sequences of repeated characters with the character followed by its count. For example, `aaabb` becomes `a3b2`.
+The compression function replaces sequences of repeated characters with the character followed by its count. For example, "aaabb" becomes "a3b2".
 
-- Time Complexity: O(n), where `n` is the size of the input string. Each character is processed once.
+- Time Complexity: O(n), where "n" is the size of the input string. Each character is processed once.
 - Space Complexity: O(n), as we allocate memory proportional to the input size for the output string.
 
 *Decompression*
 The decompression function reconstructs the original text by expanding encoded sequences.
 
-- Time Complexity: O(n), where `n` is the size of the compressed string.
+- Time Complexity: O(n), where "n" is the size of the compressed string.
 - Space Complexity: O(n), as memory for the decompressed string is allocated.
 
 *Optimality*
