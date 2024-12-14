@@ -1,4 +1,4 @@
-name: Test Sum Function # The name of the workflow, visible in the GitHub Actions tab.
+name: Test projetc_fv  # The name of the workflow, visible in the GitHub Actions tab.
 
 on:
   push: # Trigger the workflow whenever code is pushed to the repository.
