@@ -140,61 +140,57 @@ char *decompress(const char *chars) {
 
 
 
+
 int main() {
-    int choice;
-    printf("Choose mode:\n");
-    printf("1. Compression\n");
-    printf("2. Decompression\n");
-    printf("Enter your choice: ");
-    do{
-        scanf("%d", &choice);
-    }
-    while(choice !=1 && choice!=2);
-    
-    char filename[256];
-    printf("Enter your filename: ");
-    if (scanf("%255s", filename) != 1) {
-        fprintf(stderr, "Error reading filename.\n");
-        return 1;
-    }
-    char* fileContent = readfile(filename);
+    char filename[256] = "testcase.txt";  // Initialize filename
+    char *fileContent = readfile(filename);  // Read the original file
+
     if (fileContent == NULL) {
         fprintf(stderr, "Failed to read file.\n");
         return 1;
     }
-    
-    if(choice==1){
-    char* compressed = compress(fileContent);
-    free(fileContent); 
+
+    // Compress the content
+    char *compressed = compress(fileContent);
+    free(fileContent);  // Free the original content after compression
 
     if (compressed == NULL) {
         fprintf(stderr, "Compression failed.\n");
         return 1;
     }
-    const char* extension = ".txt";
-    remove_extension(filename,extension);
-    char outputFilename[512]; 
-    snprintf(outputFilename, sizeof(outputFilename), "%s_compressed.txt", filename);
-    write_file(compressed,outputFilename);
-    printf("Compressed content written to %s\n",outputFilename);
 
-    free(compressed); 
-    return 0;}
-    else if(choice==2){
-    char * decompressed=decompress(fileContent);
-    if (decompressed == NULL) {
-        fprintf(stderr, "Compression failed.\n");
+    // Prepare compressed file name and write compressed content
+    const char *extension = ".txt";
+    remove_extension(filename, extension);
+    char outputFilename[512];
+    snprintf(outputFilename, sizeof(outputFilename), "%s_compressed.txt", filename);
+    write_file(compressed, outputFilename);
+    printf("Compressed content written to %s\n", outputFilename);
+
+    free(compressed);  // Free the compressed content after writing
+
+    // Read the compressed file content
+    fileContent = readfile(outputFilename);  
+    if (fileContent == NULL) {
+        fprintf(stderr, "Failed to read compressed file.\n");
         return 1;
     }
-    const char* extension = ".txt";
-    remove_extension(filename,extension);
-    char outputFilename[512]; 
-    snprintf(outputFilename, sizeof(outputFilename), "%s_decompressed.txt", filename);
-    write_file(decompressed,outputFilename);
-    printf("Decompressed content written to %s\n",outputFilename);
-    free(decompressed);
 
+    // Decompress the content
+    char *decompressed = decompress(fileContent);
+    free(fileContent);  // Free the compressed content after decompression
 
+    if (decompressed == NULL) {
+        fprintf(stderr, "Decompression failed.\n");
+        return 1;
     }
-    else{ fprintf(stderr, "Invalid choice.\n");
-     return 1;}}
+    const char * new_extension="_compressed.txt";
+    // Prepare decompressed file name and write decompressed content
+    remove_extension(filename, new_extension);
+    snprintf(outputFilename, sizeof(outputFilename), "%s_decompressed.txt", filename);
+    write_file(decompressed, outputFilename);
+    printf("Decompressed content written to %s\n", outputFilename);
+
+    free(decompressed);  // Free the decompressed content
+    return 0;
+}
