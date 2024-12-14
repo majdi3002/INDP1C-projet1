@@ -15,44 +15,57 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Step 2: Install GCC
+      # Step 2: Update package list
+      - name: Update package list
+        run: sudo apt-get update
+
+      # Step 3: Install GCC
       - name: Install GCC
         run: sudo apt-get install -y gcc
 
-      # Step 3: Compile the C program
+      # Step 4: Compile the C program
       - name: Compile the C program
         run: gcc -o projetc_fv projetc_fv.c
 
-      # Step 4: Create a test file for compression
+      # Step 5: Create a test file for compression
       - name: Create a test file for compression
         run: echo "this is a test text for compression." > testcase.txt
 
-      # Step 5: Run the program for compression
+      # Step 6: Run the program for compression
       - name: Run the program for compression
-        run: |
-          echo "1" | ./projetc_fv
+        run: ./projetc_fv testcase.txt
         env:
           INPUT_FILE: testcase.txt
 
-      # Step 6: Check if the compressed file is created
+      # Step 7: Check if the compressed file is created
       - name: Check if the compressed file is created
         run: |
           if [ ! -f "testcase_compressed.txt" ]; then
-            echo "Compression failed."
+            echo "Compression failed. Listing current directory for debug:"
+            ls -al
             exit 1
           fi
 
-      # Step 7: Run the program for decompression
+      # Step 8: Run the program for decompression
       - name: Run the program for decompression
-        run: |
-          echo "2" | ./projetc_fv
+        run: ./projetc_fv testcase_compressed.txt
         env:
           INPUT_FILE: testcase_compressed.txt
 
-      # Step 8: Check if the decompressed file is created
+      # Step 9: Check if the decompressed file is created
       - name: Check if the decompressed file is created
         run: |
           if [ ! -f "testcase_decompressed.txt" ]; then
-            echo "Decompression failed."
+            echo "Decompression failed. Listing current directory for debug:"
+            ls -al
+            exit 1
+          fi
+
+      # Step 10: Verify decompressed content matches original
+      - name: Verify decompressed content
+        run: |
+          diff testcase.txt testcase_decompressed.txt
+          if [ $? -ne 0 ]; then
+            echo "Decompressed file does not match original."
             exit 1
           fi
