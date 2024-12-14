@@ -30,7 +30,7 @@ jobs:
       # Step 5: Run the program for compression mode (1)
       - name: Run the program for compression
         run: |
-          echo "1" | ./file_compressor
+          echo "1" | ./projetc_fv
         env:
           INPUT_FILE: testfile.txt
 
