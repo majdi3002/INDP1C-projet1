@@ -43,15 +43,11 @@ jobs:
             exit 1
           fi
 
-      # Step 8: Debug: Print compressed file content
-      - name: Debug: Print compressed file content
-        run: cat testcase_compressed.txt
-
-      # Step 9: Run the program for decompression
+      # Step 8: Run the program for decompression
       - name: Run the program for decompression
         run: ./projetc_fv testcase_compressed.txt
 
-      # Step 10: Check if the decompressed file is created
+      # Step 9: Check if the decompressed file is created
       - name: Check if the decompressed file is created
         run: |
           if [ ! -f "testcase_decompressed.txt" ]; then
@@ -59,27 +55,11 @@ jobs:
             exit 1
           fi
 
-      # Step 11: Debug: Print original file content
-      - name: Debug: Print original file content
-        run: cat testcase.txt
-
-      # Step 12: Debug: Print decompressed file content
-      - name: Debug: Print decompressed file content
-        run: cat testcase_decompressed.txt
-
-      # Step 13: Debug: Hexdump files to find byte-level differences
-      - name: Debug: Hexdump files
-        run: |
-          echo "Hexdump original file:"
-          hexdump -C testcase.txt
-          echo "Hexdump decompressed file:"
-          hexdump -C testcase_decompressed.txt
-
-      # Step 14: Verify decompressed content matches original
+      # Step 10: Verify decompressed content matches original
       - name: Verify decompressed content
         run: |
           cmp --silent testcase.txt testcase_decompressed.txt || (echo "Files differ!" && exit 1)
 
-      # Step 15: Final success message
+      # Step 11: Final success message
       - name: Success message
         run: echo "Compression and decompression workflow completed successfully!"
