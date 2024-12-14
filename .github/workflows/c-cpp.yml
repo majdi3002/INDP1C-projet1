@@ -19,40 +19,40 @@ jobs:
       - name: Install GCC
         run: sudo apt-get install -y gcc
 
-      # Step 3: Compile the program
+      # Step 3: Compile the C program
       - name: Compile the C program
         run: gcc -o projetc_fv projetc_fv.c
 
       # Step 4: Create a test file for compression
       - name: Create a test file for compression
-        run: echo "this is a test text for compression." > testfile.txt
+        run: echo "this is a test text for compression." > testcase.txt
 
-      # Step 5: Run the program for compression mode (1)
+      # Step 5: Run the program for compression
       - name: Run the program for compression
         run: |
           echo "1" | ./projetc_fv
         env:
-          INPUT_FILE: testfile.txt
+          INPUT_FILE: testcase.txt
 
       # Step 6: Check if the compressed file is created
       - name: Check if the compressed file is created
         run: |
-          if [ ! -f "testfile_compressed.txt" ]; then
+          if [ ! -f "testcase_compressed.txt" ]; then
             echo "Compression failed."
             exit 1
           fi
 
-      # Step 7: Run the program for decompression mode (2)
+      # Step 7: Run the program for decompression
       - name: Run the program for decompression
         run: |
           echo "2" | ./projetc_fv
         env:
-          INPUT_FILE: testfile_compressed.txt
+          INPUT_FILE: testcase_compressed.txt
 
       # Step 8: Check if the decompressed file is created
       - name: Check if the decompressed file is created
         run: |
-          if [ ! -f "testfile_decompressed.txt" ]; then
+          if [ ! -f "testcase_decompressed.txt" ]; then
             echo "Decompression failed."
             exit 1
           fi
