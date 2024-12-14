@@ -92,7 +92,7 @@ char* compress(char* chars) {
 
 // test function
 bool run_test(FILE *file, int test_case_num) {
-    char a[256], expected[256], result[256]; 
+    char a[1000], expected[1000], result[1000]; 
     char c;
 
     if (fscanf(file, "%s %c %s", a, &c, expected) != 3) {
