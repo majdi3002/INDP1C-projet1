@@ -125,7 +125,7 @@ bool run_test(FILE *file, int test_case_num) {
 
 
 int main() {
-    FILE *file = fopen("dataset.txt", "r");
+    FILE *file = fopen("testcase.txt", "r");
     if (file == NULL) {
         perror("Error opening dataset file");
         return 1;
