@@ -64,8 +64,5 @@ jobs:
       # Step 10: Verify decompressed content matches original
       - name: Verify decompressed content
         run: |
-          diff testcase.txt testcase_decompressed.txt
-          if [ $? -ne 0 ]; then
-            echo "Decompressed file does not match original."
-            exit 1
-          fi
+          cmp --silent testcase.txt testcase_decompressed.txt || (echo "Files differ!" && exit 1)
+
