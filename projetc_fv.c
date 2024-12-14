@@ -149,6 +149,7 @@ int main() {
         printf("2. Decompression\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
+        if(choice !=1 && choice!=2){fprintf(stderr, "Invalid choice.\n");}
     }
     while(choice !=1 && choice!=2);
     
@@ -194,8 +195,5 @@ int main() {
     write_file(decompressed,outputFilename);
     printf("Decompressed content written to %s\n",outputFilename);
     free(decompressed);
-
-
     }
-    else{ fprintf(stderr, "Invalid choice.\n");
-     return 1;}}
+    }
