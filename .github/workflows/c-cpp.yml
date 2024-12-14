@@ -45,7 +45,7 @@ jobs:
       # Step 7: Run the program for decompression mode (2)
       - name: Run the program for decompression
         run: |
-          echo "2" | ./file_compressor
+          echo "2" | ./projetc_fv
         env:
           INPUT_FILE: testfile_compressed.txt
 
