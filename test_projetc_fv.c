@@ -3,6 +3,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <stdbool.h>
+#include <time.h>
 
 
 
@@ -92,7 +93,7 @@ char* compress(char* chars) {
 
 // test function
 bool run_test(FILE *file, int test_case_num) {
-    char a[1000], expected[1000], result[1000]; 
+    char a[256], expected[256], result[256]; 
     char c;
 
     if (fscanf(file, "%s %c %s", a, &c, expected) != 3) {
@@ -125,7 +126,7 @@ bool run_test(FILE *file, int test_case_num) {
 
 
 int main() {
-    FILE *file = fopen("testcase.txt", "r");
+    FILE *file = fopen("dataset.txt", "r");
     if (file == NULL) {
         perror("Error opening dataset file");
         return 1;
@@ -135,7 +136,7 @@ int main() {
     int passed = 0, failed = 0;
 
     printf("Running tests...\n");
-
+    clock_t start_time = clock();
     while (true) {
         test_case_num++;
         if (!run_test(file, test_case_num)) {
@@ -145,10 +146,13 @@ int main() {
             passed++;
         }
     }
+     clock_t end_time = clock();
 
     fclose(file);
+    double elapsed_time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
 
     printf("\nTotal tests: %d | Passed: %d | Failed: %d\n", passed + failed, passed, failed);
+    printf("Execution time: %.2f seconds\n", elapsed_time);
 
     return (failed == 0) ? 0 : 1;
 }
