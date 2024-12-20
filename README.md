@@ -73,8 +73,9 @@ Includes error messages for invalid inputs, file access issues, and memory alloc
     
   *steps to run:
   
-   1)clone the repository:git clone <repository url>
-                          cd <repository name >
+   1)clone the repository:
+   git clone <repository url>
+   cd <repository name >
       
    2)compile the code :
        gcc -o file_tool main.c
