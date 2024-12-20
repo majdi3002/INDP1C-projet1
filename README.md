@@ -26,13 +26,10 @@ The compression function replaces sequences of repeated characters with the char
 The decompress function reconstructs the original string from its compressed form. It reads each character and its optional count (if numeric digits follow the character). For each character, it repeats it the specified number of times and writes the result  to the result buffer. The process stops when the end of the compressed string ('\0') is reached. The resulting string is null-terminated ('\0).
 
 
-- Time Complexity: O(n), where "n" is the size of the compressed string.
-- Space Complexity: O(n), as memory for the decompressed string is allocated.
+- Time Complexity: O(n+m), where "n" is the size of the compressed string, "m" is the size of the decompressed output string .
+- Space Complexity: O(m), as memory for the decompressed string is allocated.
 
-  *length function*
-  
-The length function calculates the total length of the decompressed string without actually decompressing it. It iterates through the compressed string, parsing each character and its count, summing up the total number of characters based on the counts. This allows the allocation of a correctly sized buffer for decompression.
-
+ 
 *Optimality*
 
 This solution is optimal for repetitive text as it achieves significant space savings without sacrificing processing speed.
