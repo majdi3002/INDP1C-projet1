@@ -67,19 +67,26 @@ Includes error messages for invalid inputs, file access issues, and memory alloc
 **Instructions for cloning and running the code locally on a machine **
 
   *Prerequisites:
-    -A C compiler (e.g., gcc).
-    -A compatible operating system (e.g., Linux, macOS, or Windows).
+   -A C compiler (e.g., gcc).
+    
+   -A compatible operating system (e.g., Linux, macOS, or Windows).
+    
   *steps to run:
-    1)clone the repository:
-         git clone <repository-url>
-         cd <repository-name>
-    2)compile the code :
-         gcc -o file_tool main.c
-    3)run the code :
-         ./file_tool
-    4)follow the interactive prompts :
-       -For Compression: By selecting option 1 and entering the name of the file to compress,the output will be saved as                          <filename>_compressed.txt.
-       -For Decompression: By selecting option 2 and entering the name of the file to decompress,the output will be saved as                      <filename>_decompressed.txt
+  
+   1)clone the repository:
+      git clone <repository-url>
+      cd <repository-name>
+      
+   2)compile the code :
+       gcc -o file_tool main.c
+         
+   3)run the code :
+       ./file_tool
+         
+   4)follow the interactive prompts :
+    
+   -For Compression: By selecting option 1 and entering the name of the file to compress,the output will be saved as                          <filename>_compressed.txt.
+   -For Decompression: By selecting option 2 and entering the name of the file to decompress,the output will be saved as                      <filename>_decompressed.txt
 
 
 
